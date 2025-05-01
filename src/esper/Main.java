@@ -13,11 +13,7 @@ public class Main {
         // Register events
         Config.registerEvents();
         
-        ElectronicControlUnit ecu = new ElectronicControlUnit(
-                new AcceleratePedal(0), new BrakePedal(0), new ACUnit(false, 0),
-                new CruiseControl(false), new DrivingShaftSensor(0), new FuelSensor(0),
-                new HandbrakeSensor(false), new MaintenanceNotifier(0), new ThrottleControl(0), true
-        );
+        ElectronicControlUnit ecu = new ElectronicControlUnit();
         
         Config.createStatement("select state from ACButtonState").setSubscriber(new Object() {
             public void update(boolean state) {
@@ -27,39 +23,35 @@ public class Main {
         
         Config.createStatement("select pressed from AccelerateButtonState").setSubscriber(new Object() {
             public void update(boolean state) {
-                if (state) {
-                    ecu.getCruiseControl().accelerate(0); // TODO: Change to a random or fixed number
-                }
+                ecu.getCruiseControl().accelerate(state);
             }
         });
         
         Config.createStatement("select pressed from AcceleratePedalState").setSubscriber(new Object() {
             public void update(boolean state) {
-                if (state) {
-                    ecu.getAcceleratePedal().adjustSpeed(0); // TODO: Change to a random or fixed number
-                }
+                ecu.getAcceleratePedal().adjustSpeed(state);
             }
         });
         
-        Config.createStatement("select pressed from BrakePedalState").setSubscriber(new Object() {
+        Config.createStatement("select pressed from DeceleratePedalState").setSubscriber(new Object() {
             public void update(boolean state) {
-                if (state) {
-                    ecu.getBrakePedal().adjustSpeed(0); // TODO: Change to a random or fixed number
-                }
+                ecu.getBrakePedal().adjustSpeed(state);
             }
         });
         
-        Config.createStatement("select state from CruiseButtonState").setSubscriber(new Object() {
-            public void update(boolean state) {
-                ecu.getCruiseControl().setCruiseStatus(state);
+        Config.createStatement("select state, speed from CruiseButtonState").setSubscriber(new Object() {
+            public void update(boolean state, double speed) {
+                if (state) {
+                    ecu.getCruiseControl().start();
+                } else {
+                    ecu.getCruiseControl().stop();
+                }
             }
         });
         
         Config.createStatement("select pressed from DecelerateButtonState").setSubscriber(new Object() {
             public void update(boolean state) {
-                if (state) {
-                    ecu.getCruiseControl().decelerate(0); // TODO: Change to a random or fixed number
-                }
+                ecu.getCruiseControl().decelerate(state);
             }
         });
         
@@ -72,6 +64,22 @@ public class Main {
         Config.createStatement("select pulled from HandbrakeState").setSubscriber(new Object() {
             public void update(boolean state) {
                 ecu.getHandbrakeSensor().setHandbrakeStatus(state);
+            }
+        });
+        
+        Config.createStatement("select incrementButtonPressed from ACTempButtons").setSubscriber(new Object() {
+            public void update(boolean state) {
+                if (state) {
+                    ecu.getAcUnit().incrementTemperature();
+                } else {
+                    ecu.getAcUnit().decrementTemperature();
+                }
+            }
+        });
+        
+        Config.createStatement("select selection from MaintenanceCompletion").setSubscriber(new Object() {
+            public void update(int selection) {
+                ecu.getMaintenanceNotifier().completeMaintenance(selection);
             }
         });
     }

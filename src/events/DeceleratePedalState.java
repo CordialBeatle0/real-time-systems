@@ -1,9 +1,9 @@
 package events;
 
-public class BrakePedalState {
+public class DeceleratePedalState {
     private final boolean pressed;
     
-    public BrakePedalState(boolean pressed) {
+    public DeceleratePedalState(boolean pressed) {
         this.pressed = pressed;
     }
     

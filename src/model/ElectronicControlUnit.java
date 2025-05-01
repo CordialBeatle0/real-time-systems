@@ -1,34 +1,34 @@
 package model;
 
+import view.ElectronicControlUnitView;
+
 public class ElectronicControlUnit {
-    private AcceleratePedal acceleratePedal;
-    private BrakePedal brakePedal;
-    private ACUnit acUnit;
-    private CruiseControl cruiseControl;
-    private DrivingShaftSensor drivingShaftSensor;
-    private FuelSensor fuelSensor;
-    private HandbrakeSensor handbrakeSensor;
-    private MaintenanceNotifier maintenanceNotifier;
-    private ThrottleControl throttleControl;
-    private boolean engineState;
+    private final AcceleratePedal acceleratePedal;
+    private final BrakePedal brakePedal;
+    private final ACUnit acUnit;
+    private final CruiseControl cruiseControl;
+    private final DrivingShaftSensor drivingShaftSensor;
+    private final FuelSensor fuelSensor;
+    private final HandbrakeSensor handbrakeSensor;
+    private final MaintenanceNotifier maintenanceNotifier;
+    private final ThrottleControl throttleControl;
+    private final ElectronicControlUnitView ecuView;
     
-    public ElectronicControlUnit(AcceleratePedal acceleratePedal, BrakePedal brakePedal, ACUnit acUnit, CruiseControl cruiseControl,
-                                 DrivingShaftSensor drivingShaftSensor, FuelSensor fuelSensor, HandbrakeSensor handbrakeSensor,
-                                 MaintenanceNotifier maintenanceNotifier, ThrottleControl throttleControl, boolean engineState) {
-        this.acceleratePedal = acceleratePedal;
-        this.brakePedal = brakePedal;
-        this.acUnit = acUnit;
-        this.cruiseControl = cruiseControl;
-        this.drivingShaftSensor = drivingShaftSensor;
-        this.fuelSensor = fuelSensor;
-        this.handbrakeSensor = handbrakeSensor;
-        this.maintenanceNotifier = maintenanceNotifier;
-        this.throttleControl = throttleControl;
-        this.engineState = engineState;
-    }
-    
-    public void setEngineState(boolean engineState) {
-        this.engineState = engineState;
+    public ElectronicControlUnit() {
+        ecuView = new ElectronicControlUnitView();
+        
+        throttleControl = new ThrottleControl(0, this);
+        acceleratePedal = new AcceleratePedal(throttleControl);
+        brakePedal = new BrakePedal(throttleControl);
+        acUnit = new ACUnit(false, 25, 25, this);
+        cruiseControl = new CruiseControl(false, 0, this);
+        drivingShaftSensor = new DrivingShaftSensor(0);
+        fuelSensor = new FuelSensor(50, this);
+        handbrakeSensor = new HandbrakeSensor(false, this);
+        maintenanceNotifier = new MaintenanceNotifier(0, this);
+        
+        ecuView.setLocationRelativeTo(null);
+        ecuView.setVisible(true);
     }
     
     public AcceleratePedal getAcceleratePedal() {
@@ -67,19 +67,56 @@ public class ElectronicControlUnit {
         return throttleControl;
     }
     
-    public boolean getEngineState() {
-        return engineState;
+    public ElectronicControlUnitView getEcuView() {
+        return ecuView;
     }
     
-    public void start() {
+    public void emergencyStop(boolean status) {
+        throttleControl.setEmergencyStop(status);
+        throttleControl.activateCruiseThread();
+    }
+    
+    public void sendAdjustSpeedRequest() {
+        throttleControl.activateCruiseThread();
+    }
+    
+    public void sendSpeedInfo(double speed) {
         
     }
     
-    public void stop() {
+    public void sendRPMInfo(double RPM) {
         
     }
     
-    public void emergencyStop() {
+    public void sendFuelLevelInfo(double fuelLevel) {
+        
+    }
+    
+    public void sendHandbrakeStatusInfo(boolean status) {
+        
+    }
+    
+    public void sendOilFilterChangeInfo(boolean status) {
+        
+    }
+    
+    public void sendAirFilterChangeInfo(boolean status) {
+        
+    }
+    
+    public void sendMajorServiceInfo(boolean status) {
+        
+    }
+    
+    public void sendMileageInfo(int mileage) {
+        
+    }
+    
+    public void sendCruiseControlInfo(boolean status) {
+        
+    }
+    
+    public void sendTemperatureInfo(double temp) {
         
     }
 }

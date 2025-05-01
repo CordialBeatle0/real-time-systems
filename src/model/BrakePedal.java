@@ -1,12 +1,13 @@
 package model;
 
-public class BrakePedal extends ThrottleControl {
-    public BrakePedal(double currentSpeed) {
-        super(currentSpeed);
+public class BrakePedal {
+    private final ThrottleControl throttleControl;
+    
+    public BrakePedal(ThrottleControl throttleControl) {
+        this.throttleControl = throttleControl;
     }
     
-    @Override
-    public void adjustSpeed(double speed) {
-        
+    public void adjustSpeed(boolean state) {
+        throttleControl.activatePedalThread(false, state);
     }
 }
