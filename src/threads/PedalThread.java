@@ -11,7 +11,6 @@ public class PedalThread implements Runnable {
     private double currentSpeed;
     private final FuelSensor fuelSensor;
     private final ThrottleControl throttleControl;
-    double oldFuelAmount;
     
     public PedalThread(boolean accelerate, boolean pressed, double currentSpeed, FuelSensor fuelSensor, ThrottleControl throttleControl) {
         this.accelerate = accelerate;
@@ -19,7 +18,6 @@ public class PedalThread implements Runnable {
         this.currentSpeed = currentSpeed;
         this.fuelSensor = fuelSensor;
         this.throttleControl = throttleControl;
-        oldFuelAmount = fuelSensor.getFuelLevel();
     }
     
     public void setAccelerate(boolean accelerate) {
@@ -61,11 +59,8 @@ public class PedalThread implements Runnable {
             }
             
             // Mileage monitor
-            if (oldFuelAmount + fuelSensor.getFuelLevel() > 0.5) {
-                double mileage = Math.floor(fuelSensor.getFuelLevel() - oldFuelAmount) / 2;
-                oldFuelAmount += mileage; // Update the old fuel amount
-                throttleControl.getEcu().getMaintenanceNotifier().incrementMileage(mileage);
-            }
+            double mileage = currentSpeed * 0.01; // Example mileage calculation
+            throttleControl.getEcu().getMaintenanceNotifier().incrementMileage(mileage);
             
             currentSpeed = throttleControl.getCurrentSpeed();
             

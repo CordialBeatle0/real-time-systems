@@ -45,14 +45,12 @@ public class ACUnit {
     public void incrementTemperature() {
         if (status) {
             setTemperature += 1.0;
-            ecu.getEcuView().getjTextFieldSetTemp().setText(String.valueOf(setTemperature));
         }
     }
     
     public void decrementTemperature() {
         if (status) {
             setTemperature -= 1.0;
-            ecu.getEcuView().getjTextFieldSetTemp().setText(String.valueOf(setTemperature));
         }
     }
 }

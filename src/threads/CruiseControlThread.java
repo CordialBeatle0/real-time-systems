@@ -10,14 +10,12 @@ public class CruiseControlThread implements Runnable {
     private double currentSpeed;
     private final ThrottleControl throttleControl;
     private final FuelSensor fuelSensor;
-    double oldFuelAmount;
     
     public CruiseControlThread(double currentSpeed, ThrottleControl throttleControl, FuelSensor fuelSensor) {
         this.setSpeed = Double.parseDouble(throttleControl.getEcu().getEcuView().getjTextFieldSetSpeed().getText());
         this.currentSpeed = currentSpeed;
         this.throttleControl = throttleControl;
         this.fuelSensor = fuelSensor;
-        oldFuelAmount = fuelSensor.getFuelLevel();
     }
     
     public void setThrottleControlSetSpeed() {
@@ -73,11 +71,8 @@ public class CruiseControlThread implements Runnable {
             }
             
             // Mileage monitor
-            if (oldFuelAmount + fuelSensor.getFuelLevel() > 0.5) {
-                double mileage = Math.floor(oldFuelAmount - fuelSensor.getFuelLevel()) / 2;
-                oldFuelAmount -= mileage; // Update the old fuel amount
-                throttleControl.getEcu().getMaintenanceNotifier().incrementMileage(mileage);
-            }
+            double mileage = currentSpeed * 0.01; // Example mileage calculation
+            throttleControl.getEcu().getMaintenanceNotifier().incrementMileage(mileage);
             
             // Cruise Control
             currentSpeed = throttleControl.getCurrentSpeed(); // In case the speed is changed elsewhere

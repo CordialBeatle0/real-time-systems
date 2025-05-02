@@ -29,7 +29,7 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        
+
         buttonGroup1 = new NoneSelectedButtonGroup();
         buttonGroup2 = new NoneSelectedButtonGroup();
         jButtonCruiseOn = new javax.swing.JButton();
@@ -72,16 +72,18 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         jButtonMajorComplete = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jTextFieldMileage = new javax.swing.JTextField();
-        
+        jButtonACStart = new javax.swing.JButton();
+        jButtonACStop = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
+
         jButtonCruiseOn.setText("Cruise On");
         jButtonCruiseOn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCruiseOnActionPerformed(evt);
             }
         });
-        
+
         jButtonCruiseOff.setText("Cruise Off");
         jButtonCruiseOff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,26 +91,30 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             }
         });
         
+        jTextFieldSetSpeed.setText("0");
+
         jLabel1.setText("Set Speed");
-        
+
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Auto Mobile System");
-        
+
         jLabel3.setText("Pedals");
-        
+
         jTextFieldCurrentSpeed.setEditable(false);
-        jTextFieldCurrentSpeed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        
+        jTextFieldCurrentSpeed.setText("0");
+
         jLabel4.setText("Current Speed");
-        
+
         jLabel5.setText("Fuel Sensor");
-        
+
         jTextFieldFuel.setEditable(false);
-        
+        jTextFieldFuel.setText("0");
+
         jLabel6.setText("RPM");
         
         jTextFieldRPM.setEditable(false);
-        
+        jTextFieldRPM.setText("0");
+
         jLabel7.setText("Air Conditioner");
         
         jButtonTempIncrease.setText("Increase Temp");
@@ -177,6 +183,8 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         
         jLabel11.setText("Refuel");
         
+        jTextFieldRefuel.setText("0");
+
         jButtonRefuel.setText("Submit");
         jButtonRefuel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +233,22 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         jLabel16.setText("Mileage");
         
         jTextFieldMileage.setEditable(false);
+        jTextFieldMileage.setText("0");
         
+        jButtonACStart.setText("Start");
+        jButtonACStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonACStartActionPerformed(evt);
+            }
+        });
+        
+        jButtonACStop.setText("Stop");
+        jButtonACStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonACStopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -316,15 +339,22 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE,
                                         Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(61, 61, 61)
-                                                .addComponent(jLabel11))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextFieldRefuel, javax.swing.GroupLayout.PREFERRED_SIZE, 71,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jButtonRefuel)))
-                                .addGap(92, 92, 92))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(61, 61, 61)
+                                                                .addComponent(jLabel11))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jTextFieldRefuel, javax.swing.GroupLayout.PREFERRED_SIZE, 71,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(jButtonRefuel)))
+                                                .addGap(92, 92, 92))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jButtonACStart)
+                                                .addGap(52, 52, 52)
+                                                .addComponent(jButtonACStop)
+                                                .addGap(66, 66, 66))))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,10 +429,14 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jButtonTempIncrease)
-                                                        .addComponent(jButtonTempDecrease))))
+                                                        .addComponent(jButtonTempDecrease))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jButtonACStart)
+                                                        .addComponent(jButtonACStop))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(63, 63, 63)
+                                                .addGap(44, 44, 44)
                                                 .addComponent(jLabel11)
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -420,7 +454,7 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
                                                 .addComponent(jToggleButtonHandbrake)
                                                 .addGap(71, 71, 71))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(27, 27, 27)
+                                                .addGap(8, 8, 8)
                                                 .addComponent(jLabel12)
                                                 .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -454,7 +488,7 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
                                                                         .addComponent(jToggleButtonCruiseAccelerate))
                                                                 .addGap(51, 51, 51))))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(108, 108, 108)
+                                                .addGap(89, 89, 89)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(jButtonAirComplete)
                                                         .addComponent(jButtonMajorComplete)
@@ -464,6 +498,14 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jButtonACStartActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonACStartActionPerformed
+        Config.sendEvent(new ACButtonState(true));
+    }// GEN-LAST:event_jButtonACStartActionPerformed
+    
+    private void jButtonACStopActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonACStopActionPerformed
+        Config.sendEvent(new ACButtonState(false));
+    }// GEN-LAST:event_jButtonACStopActionPerformed
     
     private void jButtonOilCompleteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonOilCompleteActionPerformed
         Config.sendEvent(new MaintenanceCompletion(1));
@@ -625,6 +667,8 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private NoneSelectedButtonGroup buttonGroup1;
     private NoneSelectedButtonGroup buttonGroup2;
+    private javax.swing.JButton jButtonACStart;
+    private javax.swing.JButton jButtonACStop;
     private javax.swing.JButton jButtonAirComplete;
     private javax.swing.JButton jButtonCruiseOff;
     private javax.swing.JButton jButtonCruiseOn;
