@@ -7,7 +7,6 @@ public class ElectronicControlUnit {
     private final BrakePedal brakePedal;
     private final ACUnit acUnit;
     private final CruiseControl cruiseControl;
-    private final DrivingShaftSensor drivingShaftSensor;
     private final FuelSensor fuelSensor;
     private final HandbrakeSensor handbrakeSensor;
     private final MaintenanceNotifier maintenanceNotifier;
@@ -22,7 +21,6 @@ public class ElectronicControlUnit {
         brakePedal = new BrakePedal(throttleControl);
         acUnit = new ACUnit(false, 25, 25, this);
         cruiseControl = new CruiseControl(false, 0, this);
-        drivingShaftSensor = new DrivingShaftSensor(0);
         fuelSensor = new FuelSensor(50, this);
         handbrakeSensor = new HandbrakeSensor(false, this);
         maintenanceNotifier = new MaintenanceNotifier(0, this);
@@ -45,10 +43,6 @@ public class ElectronicControlUnit {
     
     public CruiseControl getCruiseControl() {
         return cruiseControl;
-    }
-    
-    public DrivingShaftSensor getDrivingShaftSensor() {
-        return drivingShaftSensor;
     }
     
     public FuelSensor getFuelSensor() {
@@ -78,45 +72,5 @@ public class ElectronicControlUnit {
     
     public void sendAdjustSpeedRequest() {
         throttleControl.activateCruiseThread();
-    }
-    
-    public void sendSpeedInfo(double speed) {
-        
-    }
-    
-    public void sendRPMInfo(double RPM) {
-        
-    }
-    
-    public void sendFuelLevelInfo(double fuelLevel) {
-        
-    }
-    
-    public void sendHandbrakeStatusInfo(boolean status) {
-        
-    }
-    
-    public void sendOilFilterChangeInfo(boolean status) {
-        
-    }
-    
-    public void sendAirFilterChangeInfo(boolean status) {
-        
-    }
-    
-    public void sendMajorServiceInfo(boolean status) {
-        
-    }
-    
-    public void sendMileageInfo(int mileage) {
-        
-    }
-    
-    public void sendCruiseControlInfo(boolean status) {
-        
-    }
-    
-    public void sendTemperatureInfo(double temp) {
-        
     }
 }

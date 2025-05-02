@@ -6,7 +6,6 @@ public class ACUnit {
     private boolean status;
     private double setTemperature;
     private double currentTemperature;
-    private final Thread acTempThread;
     private final ElectronicControlUnit ecu;
     
     public ACUnit(boolean status, double setTemperature, double currentTemperature, ElectronicControlUnit ecu) {
@@ -14,7 +13,7 @@ public class ACUnit {
         this.setTemperature = setTemperature;
         this.currentTemperature = currentTemperature;
         this.ecu = ecu;
-        acTempThread = new Thread(new ACTempThread(status, setTemperature, currentTemperature, this));
+        Thread acTempThread = new Thread(new ACTempThread(status, setTemperature, currentTemperature, this));
         acTempThread.start();
     }
     

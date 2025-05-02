@@ -54,6 +54,7 @@ public class ACTempThread implements Runnable {
             try {
                 Thread.sleep(1000); // Adjust temperature every second
             } catch (InterruptedException e) {
+                System.out.println("ACTempThread interrupted: " + e.getMessage());
                 // Thread.currentThread().interrupt(); // interrupt the thread if attempted to interrupt during sleep
                 // break;
             }
