@@ -516,6 +516,12 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         if (jToggleButtonHandbrake.isSelected()) {
             return;
         }
+        if (jToggleButtonDecelerate.isSelected()) {
+            jToggleButtonDecelerate.setSelected(false);
+        }
+        if (jToggleButtonAccelerate.isSelected()) {
+            jToggleButtonAccelerate.setSelected(false);
+        }
         
         if (jTextFieldSetSpeed.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter the speed cruise control should be set to.");
@@ -526,6 +532,9 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             return;
         }
         
+        jToggleButtonDecelerate.setEnabled(true);
+        jToggleButtonAccelerate.setEnabled(true);
+        
         double speed = Double.parseDouble(jTextFieldSetSpeed.getText());
         Config.sendEvent(new CruiseButtonState(true, speed));
     }// GEN-LAST:event_jButtonCruiseOnActionPerformed
@@ -534,6 +543,8 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         if (jToggleButtonHandbrake.isSelected()) {
             return;
         }
+        jToggleButtonDecelerate.setEnabled(false);
+        jToggleButtonAccelerate.setEnabled(false);
         
         jTextFieldSetSpeed.setText("0");
         Config.sendEvent(new CruiseButtonState(false, 0));
