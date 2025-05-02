@@ -30,8 +30,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new NoneSelectedButtonGroup();
-        buttonGroup2 = new NoneSelectedButtonGroup();
         jButtonCruiseOn = new javax.swing.JButton();
         jButtonCruiseOff = new javax.swing.JButton();
         jTextFieldSetSpeed = new javax.swing.JTextField();
@@ -109,21 +107,21 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         jTextFieldFuel.setText("0");
 
         jLabel7.setText("Air Conditioner");
-        
+
         jButtonTempIncrease.setText("Increase Temp");
         jButtonTempIncrease.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTempIncreaseActionPerformed(evt);
             }
         });
-        
+
         jButtonTempDecrease.setText("Decrease Temp");
         jButtonTempDecrease.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTempDecreaseActionPerformed(evt);
             }
         });
-        
+
         jLabel8.setText("Current Temp");
         
         jTextFieldCurrentTemp.setEditable(false);
@@ -132,7 +130,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         
         jTextFieldSetTemp.setEditable(false);
         
-        buttonGroup1.add(jToggleButtonHandbrake);
         jToggleButtonHandbrake.setText("Handbrake");
         jToggleButtonHandbrake.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,7 +137,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             }
         });
         
-        buttonGroup1.add(jToggleButtonDecelerate);
         jToggleButtonDecelerate.setText("Decelerate");
         jToggleButtonDecelerate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +144,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             }
         });
         
-        buttonGroup1.add(jToggleButtonAccelerate);
         jToggleButtonAccelerate.setText("Accelerate");
         jToggleButtonAccelerate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +151,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             }
         });
         
-        buttonGroup2.add(jToggleButtonCruiseAccelerate);
         jToggleButtonCruiseAccelerate.setText("Accelerate");
         jToggleButtonCruiseAccelerate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +158,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             }
         });
         
-        buttonGroup2.add(jToggleButtonCruiseDecelerate);
         jToggleButtonCruiseDecelerate.setText("Decelerate");
         jToggleButtonCruiseDecelerate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -520,8 +513,16 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     }// GEN-LAST:event_jButtonRefuelActionPerformed
     
     private void jButtonCruiseOnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonCruiseOnActionPerformed
+        if (jToggleButtonHandbrake.isSelected()) {
+            return;
+        }
+        
         if (jTextFieldSetSpeed.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter the speed cruise control should be set to.");
+            return;
+        }
+        if (jTextFieldSetSpeed.getText().equals("0")) {
+            JOptionPane.showMessageDialog(this, "Cruise control cannot be set to 0.");
             return;
         }
         
@@ -530,6 +531,10 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     }// GEN-LAST:event_jButtonCruiseOnActionPerformed
     
     private void jButtonCruiseOffActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonCruiseOffActionPerformed
+        if (jToggleButtonHandbrake.isSelected()) {
+            return;
+        }
+        
         jTextFieldSetSpeed.setText("0");
         Config.sendEvent(new CruiseButtonState(false, 0));
     }// GEN-LAST:event_jButtonCruiseOffActionPerformed
@@ -540,6 +545,10 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     }// GEN-LAST:event_jToggleButtonCruiseAccelerateActionPerformed
     
     private void jToggleButtonCruiseDecelerateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST
+        if (jToggleButtonCruiseAccelerate.isSelected()) {
+            jToggleButtonCruiseAccelerate.setSelected(false);
+        }
+        
         boolean toggleState = jToggleButtonCruiseDecelerate.isSelected();
         Config.sendEvent(new DecelerateButtonState(toggleState));
     }// GEN-LAST:event_jToggleButtonCruiseDecelerateActionPerformed
@@ -553,16 +562,39 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     }// GEN-LAST:event_jButtonTempDecreaseActionPerformed
     
     private void jToggleButtonDecelerateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST
+        if (jToggleButtonHandbrake.isSelected() || jToggleButtonAccelerate.isSelected()) {
+            jToggleButtonDecelerate.setSelected(false);
+            return;
+        }
+        
         boolean toggleState = jToggleButtonDecelerate.isSelected();
         Config.sendEvent(new DeceleratePedalState(toggleState));
     }// GEN-LAST:event_jToggleButtonDecelerateActionPerformed
     
     private void jToggleButtonAccelerateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST
+        if (jToggleButtonHandbrake.isSelected() || jToggleButtonDecelerate.isSelected()) {
+            jToggleButtonAccelerate.setSelected(false);
+            return;
+        }
+        
         boolean toggleState = jToggleButtonAccelerate.isSelected();
         Config.sendEvent(new AcceleratePedalState(toggleState));
     }// GEN-LAST:event_jToggleButtonAccelerateActionPerformed
     
     private void jToggleButtonHandbrakeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST
+        if (jToggleButtonAccelerate.isSelected()) {
+            jToggleButtonAccelerate.setSelected(false);
+        }
+        if (jToggleButtonDecelerate.isSelected()) {
+            jToggleButtonDecelerate.setSelected(false);
+        }
+        if (jToggleButtonCruiseAccelerate.isSelected()) {
+            jToggleButtonCruiseAccelerate.setSelected(false);
+        }
+        if (jToggleButtonCruiseDecelerate.isSelected()) {
+            jToggleButtonCruiseDecelerate.setSelected(false);
+        }
+        
         boolean toggleState = jToggleButtonHandbrake.isSelected();
         Config.sendEvent(new HandbrakeState(toggleState));
     }// GEN-LAST:event_jToggleButtonHandbrakeActionPerformed
@@ -651,8 +683,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private NoneSelectedButtonGroup buttonGroup1;
-    private NoneSelectedButtonGroup buttonGroup2;
     private javax.swing.JButton jButtonACStart;
     private javax.swing.JButton jButtonACStop;
     private javax.swing.JButton jButtonAirComplete;
@@ -694,19 +724,6 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButtonDecelerate;
     private javax.swing.JToggleButton jToggleButtonHandbrake;
     // End of variables declaration//GEN-END:variables
-    
-    // allows toggle buttons to be deselected
-    private class NoneSelectedButtonGroup extends ButtonGroup {
-        
-        @Override
-        public void setSelected(ButtonModel model, boolean selected) {
-            if (selected) {
-                super.setSelected(model, selected);
-            } else {
-                clearSelection();
-            }
-        }
-    }
 }
 
 

@@ -67,7 +67,9 @@ public class ElectronicControlUnit {
     
     public void emergencyStop(boolean status) {
         throttleControl.setEmergencyStop(status);
-        throttleControl.activateCruiseThread();
+        if (status) {
+            throttleControl.activateCruiseThread();
+        }
     }
     
     public void sendAdjustSpeedRequest() {

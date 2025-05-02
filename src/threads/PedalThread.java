@@ -3,6 +3,7 @@ package threads;
 import model.FuelSensor;
 import model.ThrottleControl;
 
+import javax.swing.*;
 import java.util.Random;
 
 public class PedalThread implements Runnable {
@@ -55,6 +56,7 @@ public class PedalThread implements Runnable {
             
             // Fuel check
             if (fuelSensor.getFuelLevel() <= 0) {
+                pressed = false;
                 accelerate = false;
             }
             
@@ -70,6 +72,8 @@ public class PedalThread implements Runnable {
                 } else {
                     currentSpeed -= random(0, 5);
                 }
+            } else { // if no pedal pressed
+                currentSpeed -= random(0, 3); // decelerate slower
             }
             
             if (currentSpeed < 0) {
@@ -78,6 +82,13 @@ public class PedalThread implements Runnable {
             
             throttleControl.setCurrentSpeed(currentSpeed);
             throttleControl.getEcu().getEcuView().getjTextFieldCurrentSpeed().setText(String.valueOf(currentSpeed));
+            
+            if (!accelerate && currentSpeed <= 0) {
+                if (fuelSensor.getFuelLevel() <= 0) {
+                    JOptionPane.showMessageDialog(null, "Fuel level is too low. Please refuel.");
+                }
+                Thread.currentThread().interrupt(); // kill thread when decelerating and speed is 0
+            }
             
             try {
                 Thread.sleep(1000); // Adjust speed every second

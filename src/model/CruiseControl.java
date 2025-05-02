@@ -45,6 +45,8 @@ public class CruiseControl {
     
     public void stop() {
         cruiseStatus = false;
+        setSpeed = 0;
+        ecu.sendAdjustSpeedRequest();
     }
     
     public void accelerate(boolean pressed) {

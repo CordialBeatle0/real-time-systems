@@ -50,6 +50,10 @@ public class MaintenanceNotifier {
     }
     
     public void completeMaintenance(int selection) {
+        if (ecu.getThrottleControl().getCurrentSpeed() > 0) {
+            JOptionPane.showMessageDialog(null, "Cannot do maintenance while the vehicle is moving.");
+            return;
+        }
         switch (selection) {
             case 1:
                 if (currentMileage - lastOilFilterChangeMileage < MILEAGE_REQUIRED_FOR_OIL) {
