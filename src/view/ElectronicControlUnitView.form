@@ -420,9 +420,6 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButtonHandbrake">
       <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Handbrake"/>
       </Properties>
       <Events>
@@ -431,9 +428,6 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButtonDecelerate">
       <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Decelerate"/>
       </Properties>
       <Events>
@@ -442,9 +436,6 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButtonAccelerate">
       <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Accelerate"/>
       </Properties>
       <Events>
@@ -453,10 +444,8 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButtonCruiseAccelerate">
       <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Accelerate"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonCruiseAccelerateActionPerformed"/>
@@ -464,10 +453,8 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButtonCruiseDecelerate">
       <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="default"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Decelerate"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonCruiseDecelerateActionPerformed"/>
