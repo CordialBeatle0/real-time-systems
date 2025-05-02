@@ -540,6 +540,10 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     }// GEN-LAST:event_jButtonCruiseOffActionPerformed
     
     private void jToggleButtonCruiseAccelerateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST
+        if (jToggleButtonCruiseDecelerate.isSelected()) {
+            jToggleButtonCruiseDecelerate.setSelected(false);
+        }
+        
         boolean toggleState = jToggleButtonCruiseAccelerate.isSelected();
         Config.sendEvent(new AccelerateButtonState(toggleState));
     }// GEN-LAST:event_jToggleButtonCruiseAccelerateActionPerformed
