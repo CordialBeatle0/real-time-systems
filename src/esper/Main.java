@@ -29,13 +29,13 @@ public class Main {
         
         Config.createStatement("select pressed from AcceleratePedalState").setSubscriber(new Object() {
             public void update(boolean state) {
-                ecu.getAcceleratePedal().adjustSpeed(state);
+                ecu.getAcceleratePedal().increaseSpeed(state);
             }
         });
         
         Config.createStatement("select pressed from DeceleratePedalState").setSubscriber(new Object() {
             public void update(boolean state) {
-                ecu.getBrakePedal().adjustSpeed(state);
+                ecu.getBrakePedal().decreaseSpeed(state);
             }
         });
         

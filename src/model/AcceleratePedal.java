@@ -7,7 +7,7 @@ public class AcceleratePedal {
         this.throttleControl = throttleControl;
     }
     
-    public void adjustSpeed(boolean state) {
+    public void increaseSpeed(boolean state) {
         throttleControl.activatePedalThread(true, state);
     }
 }
