@@ -42,6 +42,9 @@ public class CruiseControl {
     
     public void stop() {
         cruiseStatus = false;
+        if (speedChangeThread != null && speedChangeThread.isAlive()) {
+            speedChangeThread.interrupt();
+        }
         setSpeed = 0;
         ecu.sendAdjustSpeedRequest();
     }

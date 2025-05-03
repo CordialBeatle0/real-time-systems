@@ -86,7 +86,7 @@ public class MaintenanceNotifier {
     
     public void incrementMileage(double mileage) {
         currentMileage += mileage;
-        ecu.setGUIMileage(mileage);
+        ecu.setGUIMileage(currentMileage);
         checkMaintenance();
     }
     

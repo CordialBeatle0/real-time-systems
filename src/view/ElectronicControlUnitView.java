@@ -512,8 +512,7 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             return;
         }
         
-        jToggleButtonCruiseDecelerate.setEnabled(true);
-        jToggleButtonCruiseAccelerate.setEnabled(true);
+        accelerateButtonsControl(true);
         
         double speed = Double.parseDouble(jTextFieldSetSpeed.getText());
         Config.sendEvent(new CruiseButtonState(true, speed));
@@ -523,8 +522,8 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         if (jToggleButtonHandbrake.isSelected()) {
             return;
         }
-        jToggleButtonCruiseDecelerate.setEnabled(false);
-        jToggleButtonCruiseAccelerate.setEnabled(false);
+        
+        accelerateButtonsControl(false);
         
         jTextFieldSetSpeed.setText("0");
         Config.sendEvent(new CruiseButtonState(false, 0));
@@ -562,6 +561,8 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             return;
         }
         
+        accelerateButtonsControl(false);
+        
         boolean toggleState = jToggleButtonDecelerate.isSelected();
         Config.sendEvent(new DeceleratePedalState(toggleState));
     }// GEN-LAST:event_jToggleButtonDecelerateActionPerformed
@@ -571,6 +572,8 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
             jToggleButtonAccelerate.setSelected(false);
             return;
         }
+        
+        accelerateButtonsControl(false);
         
         boolean toggleState = jToggleButtonAccelerate.isSelected();
         Config.sendEvent(new AcceleratePedalState(toggleState));
@@ -589,6 +592,8 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
         if (jToggleButtonCruiseDecelerate.isSelected()) {
             jToggleButtonCruiseDecelerate.setSelected(false);
         }
+        
+        accelerateButtonsControl(false);
         
         boolean toggleState = jToggleButtonHandbrake.isSelected();
         Config.sendEvent(new HandbrakeState(toggleState));
@@ -640,6 +645,13 @@ public class ElectronicControlUnitView extends javax.swing.JFrame {
     
     public JButton getjButtonMajorComplete() {
         return jButtonMajorComplete;
+    }
+    
+    private void accelerateButtonsControl(boolean enabled) {
+        jToggleButtonCruiseAccelerate.setSelected(false);
+        jToggleButtonCruiseDecelerate.setSelected(false);
+        jToggleButtonCruiseDecelerate.setEnabled(enabled);
+        jToggleButtonCruiseAccelerate.setEnabled(enabled);
     }
     
     /**

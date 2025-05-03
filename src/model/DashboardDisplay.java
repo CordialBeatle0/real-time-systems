@@ -36,14 +36,18 @@ public class DashboardDisplay {
             case 1:
                 view.getjCheckBoxOil().setSelected(state);
                 view.getjButtonOilComplete().setEnabled(state);
+                break;
             case 2:
                 view.getjCheckBoxAir().setSelected(state);
                 view.getjButtonAirComplete().setEnabled(state);
+                break;
             case 3:
                 view.getjCheckBoxMajor().setSelected(state);
                 view.getjButtonMajorComplete().setEnabled(state);
+                break;
             default:
                 System.out.println("Incorrect selection for maintenance check");
+                break;
         }
     }
     
