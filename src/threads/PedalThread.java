@@ -81,7 +81,7 @@ public class PedalThread implements Runnable {
             }
             
             throttleControl.setCurrentSpeed(currentSpeed);
-            throttleControl.getEcu().getEcuView().getjTextFieldCurrentSpeed().setText(String.valueOf(currentSpeed));
+            throttleControl.getEcu().setGUICurrentSpeed(currentSpeed);
             
             if (!accelerate && currentSpeed <= 0) {
                 if (fuelSensor.getFuelLevel() <= 0) {

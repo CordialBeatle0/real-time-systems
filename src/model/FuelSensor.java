@@ -10,7 +10,7 @@ public class FuelSensor {
     public FuelSensor(double fuelLevel, ElectronicControlUnit ecu) {
         this.fuelLevel = fuelLevel;
         this.ecu = ecu;
-        ecu.getEcuView().getjTextFieldFuel().setText(String.valueOf(fuelLevel));
+        ecu.setGUIFuelLevel(fuelLevel);
     }
     
     public void setFuelLevel(double fuelLevel) {
@@ -26,7 +26,7 @@ public class FuelSensor {
         if (fuelLevel < 0) {
             fuelLevel = 0;
         }
-        ecu.getEcuView().getjTextFieldFuel().setText(String.valueOf(fuelLevel));
+        ecu.setGUIFuelLevel(fuelLevel);
     }
     
     public void refuel(double fuel) {
@@ -36,7 +36,7 @@ public class FuelSensor {
         }
         if (fuelLevel + fuel <= MAX_CAPACITY) {
             fuelLevel += fuel;
-            ecu.getEcuView().getjTextFieldFuel().setText(String.valueOf(fuelLevel));
+            ecu.setGUIFuelLevel(fuelLevel);
         } else {
             JOptionPane.showMessageDialog(null, "Cannot refuel beyond maximum capacity of: " + MAX_CAPACITY);
         }

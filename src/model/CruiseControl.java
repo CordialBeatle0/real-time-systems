@@ -36,10 +36,7 @@ public class CruiseControl {
     
     public void start() {
         cruiseStatus = true;
-        if (ecu.getEcuView().getjTextFieldSetSpeed().getText().isEmpty()) {
-            throw new NullPointerException("Set speed cannot be empty");
-        }
-        setSpeed = Double.parseDouble(ecu.getEcuView().getjTextFieldSetSpeed().getText());
+        setSpeed = ecu.getGUISetSpeed();
         ecu.sendAdjustSpeedRequest();
     }
     

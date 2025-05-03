@@ -24,8 +24,8 @@ public class ACTempThread implements Runnable {
         while (true) {
             status = acUnit.getStatus();
             if (!status) { // turn off ac display
-                acUnit.getEcu().getEcuView().getjTextFieldSetTemp().setText("");
-                acUnit.getEcu().getEcuView().getjTextFieldCurrentTemp().setText("");
+                acUnit.getEcu().setGUISetTemp("");
+                acUnit.getEcu().setGUICurrentTemp("");
                 acUnit.setSetTemperature(25); // reset to default
                 acUnit.setCurrentTemperature(25); // reset to default
                 continue;
@@ -45,8 +45,8 @@ public class ACTempThread implements Runnable {
                 }
             }
             
-            acUnit.getEcu().getEcuView().getjTextFieldCurrentTemp().setText(String.valueOf(currentTemperature));
-            acUnit.getEcu().getEcuView().getjTextFieldSetTemp().setText(String.valueOf(setTemperature));
+            acUnit.getEcu().setGUICurrentTemp(String.valueOf(currentTemperature));
+            acUnit.getEcu().setGUISetTemp(String.valueOf(setTemperature));
             
             acUnit.setCurrentTemperature(currentTemperature);
             acUnit.setSetTemperature(setTemperature);

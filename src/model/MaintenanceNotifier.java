@@ -60,8 +60,7 @@ public class MaintenanceNotifier {
                     JOptionPane.showMessageDialog(null, "Not enough mileage for oil filter change");
                 }
                 lastOilFilterChangeMileage = currentMileage;
-                ecu.getEcuView().getjCheckBoxOil().setSelected(false);
-                ecu.getEcuView().getjButtonOilComplete().setEnabled(false);
+                ecu.setGUIMaintenanceCheckbox(1, false);
                 break;
             
             case 2:
@@ -69,8 +68,7 @@ public class MaintenanceNotifier {
                     JOptionPane.showMessageDialog(null, "Not enough mileage for air filter change");
                 }
                 lastAirFilterChangeMileage = currentMileage;
-                ecu.getEcuView().getjCheckBoxAir().setSelected(false);
-                ecu.getEcuView().getjButtonAirComplete().setEnabled(false);
+                ecu.setGUIMaintenanceCheckbox(2, false);
                 break;
             
             case 3:
@@ -78,8 +76,7 @@ public class MaintenanceNotifier {
                     JOptionPane.showMessageDialog(null, "Not enough mileage for major service");
                 }
                 lastMajorServiceMileage = currentMileage;
-                ecu.getEcuView().getjCheckBoxMajor().setSelected(false);
-                ecu.getEcuView().getjButtonMajorComplete().setEnabled(false);
+                ecu.setGUIMaintenanceCheckbox(3, false);
                 break;
             
             default:
@@ -89,22 +86,19 @@ public class MaintenanceNotifier {
     
     public void incrementMileage(double mileage) {
         currentMileage += mileage;
-        ecu.getEcuView().getjTextFieldMileage().setText(String.valueOf(currentMileage));
+        ecu.setGUIMileage(mileage);
         checkMaintenance();
     }
     
     private void checkMaintenance() {
         if (currentMileage - lastOilFilterChangeMileage >= MILEAGE_REQUIRED_FOR_OIL) {
-            ecu.getEcuView().getjCheckBoxOil().setSelected(true);
-            ecu.getEcuView().getjButtonOilComplete().setEnabled(true);
+            ecu.setGUIMaintenanceCheckbox(1, true);
         }
         if (currentMileage - lastAirFilterChangeMileage >= MILEAGE_REQUIRED_FOR_AIR) {
-            ecu.getEcuView().getjCheckBoxAir().setSelected(true);
-            ecu.getEcuView().getjButtonAirComplete().setEnabled(true);
+            ecu.setGUIMaintenanceCheckbox(2, true);
         }
         if (currentMileage - lastMajorServiceMileage >= MILEAGE_REQUIRED_FOR_MAJOR_SERVICE) {
-            ecu.getEcuView().getjCheckBoxMajor().setSelected(true);
-            ecu.getEcuView().getjButtonMajorComplete().setEnabled(true);
+            ecu.setGUIMaintenanceCheckbox(3, true);
         }
     }
 }

@@ -2,25 +2,23 @@ package threads;
 
 import model.CruiseControl;
 
-import javax.swing.*;
-
 public class CruiseSpeedChangeThread implements Runnable {
     private boolean pressed;
     private boolean accelerate;
-    private final JTextField setSpeedField;
+    private double setSpeed;
     private final CruiseControl cruiseControl;
     
     public CruiseSpeedChangeThread(boolean pressed, boolean accelerate, CruiseControl cruiseControl) {
         this.pressed = pressed;
         this.cruiseControl = cruiseControl;
         this.accelerate = accelerate;
-        this.setSpeedField = cruiseControl.getEcu().getEcuView().getjTextFieldSetSpeed();
+        this.setSpeed = cruiseControl.getEcu().getGUISetSpeed();
     }
     
     @Override
     public void run() {
         while (pressed) {
-            double setSpeed = Double.parseDouble(setSpeedField.getText());
+            double setSpeed = cruiseControl.getEcu().getGUISetSpeed();
             if (accelerate) {
                 setSpeed += 5;
             } else {
@@ -31,7 +29,7 @@ public class CruiseSpeedChangeThread implements Runnable {
                 setSpeed = 0;
             }
             
-            setSpeedField.setText(setSpeed + "");
+            cruiseControl.getEcu().setGUISetSpeed(setSpeed);
             cruiseControl.setSetSpeed(setSpeed);
             
             try {

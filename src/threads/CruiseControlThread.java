@@ -13,7 +13,7 @@ public class CruiseControlThread implements Runnable {
     private final FuelSensor fuelSensor;
     
     public CruiseControlThread(double currentSpeed, ThrottleControl throttleControl, FuelSensor fuelSensor) {
-        this.setSpeed = Double.parseDouble(throttleControl.getEcu().getEcuView().getjTextFieldSetSpeed().getText());
+        this.setSpeed = throttleControl.getEcu().getGUISetSpeed();
         this.currentSpeed = currentSpeed;
         this.throttleControl = throttleControl;
         this.fuelSensor = fuelSensor;
@@ -41,7 +41,7 @@ public class CruiseControlThread implements Runnable {
             // Handbrake sensor
             if (throttleControl.isEmergencyStop()) {
                 setSpeed = 0;
-                throttleControl.getEcu().getEcuView().getjTextFieldSetSpeed().setText("0");
+                throttleControl.getEcu().setGUISetSpeed(0);
                 while (true) {
                     currentSpeed -= random(5, 10); // faster speed reduction than normal
                     
@@ -50,7 +50,7 @@ public class CruiseControlThread implements Runnable {
                     }
                     
                     throttleControl.setCurrentSpeed(currentSpeed);
-                    throttleControl.getEcu().getEcuView().getjTextFieldCurrentSpeed().setText(String.valueOf(currentSpeed));
+                    throttleControl.getEcu().setGUICurrentSpeed(currentSpeed);
                     
                     if (currentSpeed <= 0) {
                         Thread.currentThread().interrupt(); // kill thread when speed is 0
@@ -95,7 +95,7 @@ public class CruiseControlThread implements Runnable {
             }
             
             throttleControl.setCurrentSpeed(currentSpeed);
-            throttleControl.getEcu().getEcuView().getjTextFieldCurrentSpeed().setText(String.valueOf(currentSpeed));
+            throttleControl.getEcu().setGUICurrentSpeed(currentSpeed);
             
             if (setSpeed <= 0 && currentSpeed <= 0) {
                 if (fuelSensor.getFuelLevel() <= 0) {

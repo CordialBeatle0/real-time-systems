@@ -1,7 +1,5 @@
 package model;
 
-import view.ElectronicControlUnitView;
-
 public class ElectronicControlUnit {
     private final AcceleratePedal acceleratePedal;
     private final BrakePedal brakePedal;
@@ -11,11 +9,10 @@ public class ElectronicControlUnit {
     private final HandbrakeSensor handbrakeSensor;
     private final MaintenanceNotifier maintenanceNotifier;
     private final ThrottleControl throttleControl;
-    private final ElectronicControlUnitView ecuView;
+    private final DashboardDisplay display;
     
     public ElectronicControlUnit() {
-        ecuView = new ElectronicControlUnitView();
-        
+        display = new DashboardDisplay();
         throttleControl = new ThrottleControl(0, this);
         acceleratePedal = new AcceleratePedal(throttleControl);
         brakePedal = new BrakePedal(throttleControl);
@@ -24,9 +21,6 @@ public class ElectronicControlUnit {
         fuelSensor = new FuelSensor(50, this);
         handbrakeSensor = new HandbrakeSensor(false, this);
         maintenanceNotifier = new MaintenanceNotifier(0, this);
-        
-        ecuView.setLocationRelativeTo(null);
-        ecuView.setVisible(true);
     }
     
     public AcceleratePedal getAcceleratePedal() {
@@ -61,10 +55,6 @@ public class ElectronicControlUnit {
         return throttleControl;
     }
     
-    public ElectronicControlUnitView getEcuView() {
-        return ecuView;
-    }
-    
     public void emergencyStop(boolean status) {
         throttleControl.setEmergencyStop(status);
         if (status) {
@@ -74,5 +64,37 @@ public class ElectronicControlUnit {
     
     public void sendAdjustSpeedRequest() {
         throttleControl.activateCruiseThread();
+    }
+    
+    public void setGUIFuelLevel(double fuelLevel) {
+        display.setFuelLevel(fuelLevel);
+    }
+    
+    public void setGUIMaintenanceCheckbox(int selection, boolean state) {
+        display.setMaintenanceCheckbox(selection, state);
+    }
+    
+    public void setGUIMileage(double mileage) {
+        display.setMileage(mileage);
+    }
+    
+    public void setGUISetTemp(String temp) {
+        display.setSetTemp(temp);
+    }
+    
+    public void setGUICurrentTemp(String temp) {
+        display.setCurrentTemp(temp);
+    }
+    
+    public void setGUISetSpeed(double speed) {
+        display.setSetSpeed(speed);
+    }
+    
+    public double getGUISetSpeed() {
+        return display.getSetSpeed();
+    }
+    
+    public void setGUICurrentSpeed(double speed) {
+        display.setCurrentSpeed(speed);
     }
 }
